@@ -1,0 +1,64 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files
+.env*
+!.env.example
+
+# vercel
+.vercel
+supabase/.temp/
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+
+# recruiting ops local artifacts
+.recruiting-ops-artifacts/
+
+# standalone MCP server packages: commit source, not build output/deps
+mcp/*/dist/
+mcp/*/node_modules/
+mcp/**/dist/
+mcp/**/node_modules/
+
+# scoped recruiter MCP rollout workspaces can contain recruiter emails, Greenhouse ids,
+# audit evidence, and token-bearing issued session / desktop config files.
+mcp/greenhouse/scoped-recruiter-mcp/rollout-evidence/
+mcp/greenhouse/scoped-recruiter-mcp/rollout-evidence-token-free-review-bundle/
+
+# graphify knowledge-graph output (local analysis artifact, not source)
+graphify-out/
+
+# packaged MCP build artifact (38MB zip, not source)
+mcp/greenhouse.zip

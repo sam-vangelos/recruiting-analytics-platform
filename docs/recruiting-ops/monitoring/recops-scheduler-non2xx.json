@@ -1,0 +1,22 @@
+{
+  "displayName": "RecOps unified Scheduler non-2xx",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Unified Scheduler attempt returned non-2xx",
+      "conditionMatchedLog": {
+        "filter": "logName=\"projects/example-project/logs/cloudscheduler.googleapis.com%2Fexecutions\" AND resource.type=\"cloud_scheduler_job\" AND resource.labels.location=\"us-central1\" AND resource.labels.job_id=\"recops-staging-orchestration-weekday\" AND jsonPayload.\"@type\"=\"type.googleapis.com/google.cloud.scheduler.logging.AttemptFinished\" AND (httpRequest.status<200 OR httpRequest.status>=300)"
+      }
+    }
+  ],
+  "notificationChannels": [
+    "projects/example-project/notificationChannels/7758655357028186974"
+  ],
+  "alertStrategy": {
+    "notificationRateLimit": {
+      "period": "300s"
+    },
+    "autoClose": "1800s"
+  },
+  "enabled": true
+}

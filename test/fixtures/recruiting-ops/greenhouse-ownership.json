@@ -1,0 +1,10 @@
+[
+  {
+    "jobId": "job_fixture_1",
+    "recruiterName": "Avery Collins",
+    "sourcerName": "Sourcer One",
+    "podName": "Pod A",
+    "openingsCount": 2,
+    "observedAt": "2026-06-24T13:59:00.000Z"
+  }
+]

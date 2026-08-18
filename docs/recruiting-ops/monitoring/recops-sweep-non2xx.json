@@ -1,0 +1,22 @@
+{
+  "displayName": "RecOps sweep/alerting Scheduler non-2xx",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "A sweep or notify Scheduler attempt returned non-2xx",
+      "conditionMatchedLog": {
+        "filter": "logName=\"projects/example-project/logs/cloudscheduler.googleapis.com%2Fexecutions\" AND resource.type=\"cloud_scheduler_job\" AND resource.labels.location=\"us-central1\" AND resource.labels.job_id=~\"^(sweep-referral|sweep-agency|notify-drain|reconcile-identity)$\" AND jsonPayload.\"@type\"=\"type.googleapis.com/google.cloud.scheduler.logging.AttemptFinished\" AND (httpRequest.status<200 OR httpRequest.status>=300)"
+      }
+    }
+  ],
+  "notificationChannels": [
+    "projects/example-project/notificationChannels/7758655357028186974"
+  ],
+  "alertStrategy": {
+    "notificationRateLimit": {
+      "period": "3600s"
+    },
+    "autoClose": "1800s"
+  },
+  "enabled": true
+}

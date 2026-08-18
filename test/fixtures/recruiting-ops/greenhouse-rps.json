@@ -1,0 +1,11 @@
+[
+  {
+    "applicationId": "app_fixture_2",
+    "jobId": "job_fixture_1",
+    "interviewId": "interview_fixture_1",
+    "stageName": "Recruiter Phone Screen",
+    "scheduledAt": "2026-06-18T17:00:00.000Z",
+    "scorecardStatus": "missing",
+    "interviewerName": "Interviewer One"
+  }
+]

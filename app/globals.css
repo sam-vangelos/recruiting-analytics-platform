@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F2EFE8;
+  --card: #FBF9F4;
+  --border: #CFC8B8;
+  --ink: #181613;
+  --ink-secondary: #5C5751;
+  --ink-tertiary: #928B82;
+  --hairline-soft: #E2DCCB;
+  --secondary: #E8E3D7;
+  --danger: #9C2A1A;
+  --danger-bg: #F2DDD5;
+  --danger-fg: #7A1F12;
+  --danger-rule: #9C2A1A;
+  --warning: #A16207;
+  --warning-bg: #F0E5C9;
+  --warning-fg: #6E4408;
+  --warning-rule: #A16207;
+  --success: #2D6B47;
+  --success-bg: #D8E2D6;
+  --success-fg: #1F4D32;
+  --success-rule: #2D6B47;
+  --info: #1E3A8A;
+  --primary-foreground: #FBF9F4;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-ink-tertiary: var(--ink-tertiary);
+  --color-hairline-soft: var(--hairline-soft);
+  --color-secondary: var(--secondary);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-danger-fg: var(--danger-fg);
+  --color-danger-rule: var(--danger-rule);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-fg: var(--warning-fg);
+  --color-warning-rule: var(--warning-rule);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-fg: var(--success-fg);
+  --color-success-rule: var(--success-rule);
+  --color-info: var(--info);
+  --color-primary-foreground: var(--primary-foreground);
+  --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", ui-monospace, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--ink);
+}
+
+button {
+  font: inherit;
+}

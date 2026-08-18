@@ -1,0 +1,13 @@
+[
+  {
+    "applicationId": "app_fixture_1",
+    "jobId": "job_fixture_1",
+    "offerId": "offer_fixture_1",
+    "status": "accepted",
+    "createdAt": "2026-06-17T12:00:00.000Z",
+    "recruiterName": "Avery Collins",
+    "sourcerName": "Sourcer One",
+    "teamName": "Engineering",
+    "hodName": "HOD One"
+  }
+]

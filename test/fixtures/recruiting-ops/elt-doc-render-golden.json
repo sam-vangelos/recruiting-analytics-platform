@@ -1,0 +1,103 @@
+{
+  "paragraphs": [
+    {
+      "kind": "week_heading",
+      "text": "Jul 3, 2026 - Jul 9, 2026",
+      "namedStyleType": "HEADING_1",
+      "bold": true,
+      "tone": "ink"
+    },
+    {
+      "kind": "section_heading",
+      "text": "Hires: (Offer Accepted b/w Jul 3 - Jul 9)",
+      "namedStyleType": "HEADING_2",
+      "bold": true,
+      "tone": "ink"
+    },
+    {
+      "kind": "lead",
+      "text": "We had two offers accepted this week.",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": true,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "Research Engineer - Brazil - Amina Vega - Frontier Data (P1) - Start date 2026-07-20.",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "Product Engineer - Theo Park - (P2) - Start date TBD.",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "note",
+      "text": "Org-wide accepted offers, Jul 3 - Jul 9. Interviews conducted are truthed by submitted scorecards.",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "muted"
+    },
+    {
+      "kind": "section_heading",
+      "text": "FDE + PE Role Progress b/w Jul 3 - Jul 9",
+      "namedStyleType": "HEADING_2",
+      "bold": true,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "QTD Offer Accepted - 2 (PE 1, FDE 1) - Amina Vega, Theo Park",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "RPS Conducted - 0 (PE 0, FDE 0): 0 passed",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "1. HM Review Conducted - 1 (PE 1, FDE 0): 1 passed",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "2. Manager/Tech Screen Conducted - 2 (PE 1, FDE 1): 1 passed",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "3. Assessment Conducted - 0 (PE 0, FDE 0): 0 passed",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "4. Onsite Interviews Conducted - 3 (PE 2, FDE 1): 2 passed",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    },
+    {
+      "kind": "body",
+      "text": "5. Offer Accepted - 1 (PE 0, FDE 1) - Theo Park",
+      "namedStyleType": "NORMAL_TEXT",
+      "bold": false,
+      "tone": "ink"
+    }
+  ],
+  "text": "Jul 3, 2026 - Jul 9, 2026\nHires: (Offer Accepted b/w Jul 3 - Jul 9)\nWe had two offers accepted this week.\nResearch Engineer - Brazil - Amina Vega - Frontier Data (P1) - Start date 2026-07-20.\nProduct Engineer - Theo Park - (P2) - Start date TBD.\nOrg-wide accepted offers, Jul 3 - Jul 9. Interviews conducted are truthed by submitted scorecards.\nFDE + PE Role Progress b/w Jul 3 - Jul 9\nQTD Offer Accepted - 2 (PE 1, FDE 1) - Amina Vega, Theo Park\nRPS Conducted - 0 (PE 0, FDE 0): 0 passed\n1. HM Review Conducted - 1 (PE 1, FDE 0): 1 passed\n2. Manager/Tech Screen Conducted - 2 (PE 1, FDE 1): 1 passed\n3. Assessment Conducted - 0 (PE 0, FDE 0): 0 passed\n4. Onsite Interviews Conducted - 3 (PE 2, FDE 1): 2 passed\n5. Offer Accepted - 1 (PE 0, FDE 1) - Theo Park\n"
+}

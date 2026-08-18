@@ -1,0 +1,124 @@
+{
+  "$name": "exec-state-of-play design tokens v1",
+  "$scope": "app/(exec) surfaces only. The generator and future exec.css consume this file; no CSS value may exist that is not derived from it.",
+
+  "color": {
+    "paper": "#FDFDFB",
+    "ink": "#17150F",
+    "ink-2": "#55524A",
+    "ink-3": "#68655C",
+    "hairline": "#DAD7CC",
+    "rule": "#C9C5B8",
+    "link": "#1F4FA3",
+    "red": "#B42318",
+    "amber": "#B04A08",
+    "green": "#1F7A44"
+  },
+
+  "colorUsage": {
+    "$contract": "every (color, minSize, minWeight) text pairing must pass the APCA floor for that size/weight; the build validator enforces this",
+    "apcaFloors": [
+      { "minPx": 16, "minWeight": 400, "floorLc": 75 },
+      { "minPx": 13, "minWeight": 500, "floorLc": 80 },
+      { "minPx": 13, "minWeight": 400, "floorLc": 90 },
+      { "nonText": "rule", "floorLc": 25 },
+      { "nonText": "hairline", "floorLc": 15 },
+      { "nonText": "statusDot", "floorLc": 45 }
+    ],
+    "rules": {
+      "ink": "any size, any weight",
+      "ink-2": "16px+ at 400; 13px+ at 500",
+      "ink-3": "16px+ at 400 only; never below 16px",
+      "link": "13px+ at 500; 16px+ at 400",
+      "red": "dots any; text 16px+ at 400/460 serif only; at most one red text run per page (the lede stuck-count)",
+      "amber": "dots only — Lc 75.3 fails the 13px/500 floor, so amber text is banned",
+      "green": "dots only; never text",
+      "budget": "no tinted background fills anywhere; status color appears only on 8px dots and the single red lede phrase; chips are ink-2 text, uncolored"
+    }
+  },
+
+  "type": {
+    "$scale": "Utopia fluid: min 15px/1.14 at 320px viewport, max 16px/1.2 at 1240px; steps emitted as clamp() computed by the generator, never hand-typed",
+    "base": { "minPx": 15, "maxPx": 16, "minRatio": 1.14, "maxRatio": 1.2, "minVw": 320, "maxVw": 1240 },
+    "steps": { "caption": -1, "body": 0, "lede": 1, "section": 2, "display": 5 },
+    "families": {
+      "serif": "\"Newsreader\", Georgia, serif",
+      "sans": "\"Inter\", system-ui, sans-serif"
+    },
+    "fontLoad": "variable instances only: Newsreader ital,opsz,wght 400..700; Inter wght 400..700",
+    "weights": { "regular": 400, "medium": 500, "semibold": 600, "serifLede": 460, "serifDisplay": 560 },
+    "numerals": "tabular in all data cells",
+    "casePolicy": "no uppercase-transformed text anywhere on the surface; sentence case only (removes the tracked-caps floor problem by construction)",
+    "lineHeights": { "display": 1.1, "lede": 1.5, "body": 1.45, "row": 1.35 }
+  },
+
+  "space": {
+    "$grid": "4px; no spacing value off this scale",
+    "scale": [4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 96]
+  },
+
+  "layout": {
+    "pageMaxWidth": 1080,
+    "pagePadding": { "top": 64, "x": 48, "bottom": 96 },
+    "sectionGap": 48,
+    "groupGap": 24,
+    "reqGrid": {
+      "$tracks": "role | recruiter | open | in-process | in-review | furthest — numbers right-aligned so columns scan vertically",
+      "columns": ["minmax(0,1fr)", "160px", "56px", "88px", "88px", "128px"],
+      "gap": 16,
+      "rowPaddingY": 12
+    },
+    "reqGridV3": {
+      "$tracks": "role | recruiter | awaiting-review | pipeline strip (6 slots) | last-14d — the content-contract row: current pipeline stage-by-stage + trailing movement",
+      "columns": ["minmax(0,1fr)", "120px", "56px", "312px", "140px"],
+      "slotCount": 6,
+      "gap": 16,
+      "rowPaddingY": 12,
+      "detailIndent": 24
+    },
+    "hireGrid": {
+      "columns": ["200px", "minmax(0,1fr)", "160px", "48px", "88px", "88px"],
+      "gap": 16,
+      "rowPaddingY": 8
+    },
+    "containerQuery": "components respond to the page container; below 720px row grids collapse to a stacked two-line layout and the masthead index drops beneath the lede"
+  },
+
+  "density": {
+    "$targets": "declared per surface, checked at review",
+    "reqRow": "one grid line + at most one sub-line (activity/finalists merged); 44–72px per req",
+    "hireRow": "one grid line, 36–40px",
+    "aboveTheFold": "masthead lede + index + first stuck group visible at 1440x900"
+  },
+
+  "borders": { "thin": 1, "strong": 2, "radius": 4 },
+
+  "elevation": {
+    "$decision": "flat surface, declared: level 0 only. This is a briefing document register; layering is done with hairline/rule strength, never shadows"
+  },
+
+  "motion": {
+    "fast": "150ms",
+    "base": "200ms",
+    "ease": "cubic-bezier(0.2, 0, 0, 1)",
+    "properties": "color, text-decoration-color, transform, opacity only; never transition: all",
+    "scroll": "smooth",
+    "reducedMotion": "all transitions and smooth scroll disabled under prefers-reduced-motion"
+  },
+
+  "affordance": {
+    "links": "underlined at rest (decoration at 35% link color), full-strength decoration on hover; color alone never carries interactivity",
+    "disclosure": "native details/summary with a rotating marker and link-style summary for any 'N more' truncation",
+    "chips": "non-interactive labels have no border (border reads as button); chip = 13px/500 colored text only",
+    "focus": "2px solid link-color outline, 2px offset, on every interactive element via :focus-visible"
+  },
+
+  "states": {
+    "$matrix": "every state designed, not just happy path",
+    "unavailable": "no snapshot yet: masthead + one-sentence explanation + what will appear; no skeleton chrome",
+    "stale": "as-of older than 26h: amber banner line under masthead stating age and expected refresh; page still renders",
+    "emptyGroup": "a health group with zero reqs is omitted entirely (never a headless section); if ALL stuck groups are empty the Stuck section renders one green-dot sentence",
+    "partialData": "when the snapshot reports stage-taxonomy gaps, a single footnote line names the count; never inline per-row warnings",
+    "loading": "N/A — server-rendered from a durable snapshot; no client fetch exists"
+  }
+}

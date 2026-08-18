@@ -1,0 +1,21 @@
+# Never ship: local state, artifacts with row-level data, VCS, build output.
+.git
+.gitignore
+node_modules
+.next
+.vercel
+.recruiting-ops-artifacts
+.env*
+*.log
+
+# Not needed in the image.
+docs
+test
+scripts/*.md
+README.md
+AGENTS.md
+CLAUDE.md
+supabase
+.github
+.dockerignore
+Dockerfile

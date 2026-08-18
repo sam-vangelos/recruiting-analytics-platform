@@ -1,0 +1,22 @@
+{
+  "displayName": "RecOps unified Scheduler configuration changed",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Unified Scheduler paused, deleted, or updated",
+      "conditionMatchedLog": {
+        "filter": "logName=\"projects/example-project/logs/cloudaudit.googleapis.com%2Factivity\" AND resource.type=\"audited_resource\" AND resource.labels.service=\"cloudscheduler.googleapis.com\" AND protoPayload.serviceName=\"cloudscheduler.googleapis.com\" AND protoPayload.resourceName=\"projects/example-project/locations/us-central1/jobs/recops-staging-orchestration-weekday\" AND (protoPayload.methodName=\"google.cloud.scheduler.v1.CloudScheduler.PauseJob\" OR protoPayload.methodName=\"google.cloud.scheduler.v1.CloudScheduler.DeleteJob\" OR protoPayload.methodName=\"google.cloud.scheduler.v1.CloudScheduler.UpdateJob\")"
+      }
+    }
+  ],
+  "notificationChannels": [
+    "projects/example-project/notificationChannels/7758655357028186974"
+  ],
+  "alertStrategy": {
+    "notificationRateLimit": {
+      "period": "300s"
+    },
+    "autoClose": "1800s"
+  },
+  "enabled": true
+}

@@ -1,0 +1,40 @@
+{
+  "finalOfferRows": [
+    {
+      "application_id": "app_fixture_1",
+      "offer_status": "accepted",
+      "month_bucket": "2026-06"
+    }
+  ],
+  "rpsRows": [
+    {
+      "application_id": "app_fixture_2",
+      "interview_stage": "phone screen",
+      "scorecard_status": "missing",
+      "week_bucket": "2026-06-15"
+    }
+  ],
+  "pipelineRows": [
+    {
+      "application_id": "app_fixture_1",
+      "stage_name": "Application Review",
+      "week_bucket": "2026-06-15"
+    }
+  ],
+  "ownershipRows": [
+    {
+      "view_type": "job",
+      "job_id": "job_fixture_1",
+      "recruiter_name": "Avery Collins",
+      "openings_count": 2
+    }
+  ],
+  "weeklyLeadershipRows": [
+    {
+      "job_id": "job_fixture_1",
+      "pipeline_count": 2,
+      "offer_count": 1,
+      "week_bucket": "2026-06-15"
+    }
+  ]
+}

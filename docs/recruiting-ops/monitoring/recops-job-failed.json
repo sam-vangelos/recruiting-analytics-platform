@@ -1,0 +1,28 @@
+{
+  "displayName": "RecOps hydration Job failed",
+  "combiner": "OR",
+  "conditions": [
+    {
+      "displayName": "Hydration Job completed with failed result",
+      "conditionThreshold": {
+        "filter": "metric.type=\"run.googleapis.com/job/completed_execution_count\" AND resource.type=\"cloud_run_job\" AND resource.label.location=\"us-central1\" AND resource.label.job_name=\"ta-ops-staging-hydration\" AND metric.label.result=\"failed\"",
+        "aggregations": [
+          {
+            "alignmentPeriod": "60s",
+            "perSeriesAligner": "ALIGN_DELTA"
+          }
+        ],
+        "comparison": "COMPARISON_GT",
+        "thresholdValue": 0,
+        "duration": "0s",
+        "trigger": {
+          "count": 1
+        }
+      }
+    }
+  ],
+  "notificationChannels": [
+    "projects/example-project/notificationChannels/7758655357028186974"
+  ],
+  "enabled": true
+}

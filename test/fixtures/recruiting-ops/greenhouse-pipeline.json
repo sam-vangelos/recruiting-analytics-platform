@@ -1,0 +1,16 @@
+[
+  {
+    "applicationId": "app_fixture_1",
+    "jobId": "job_fixture_1",
+    "reqId": "890",
+    "stageName": "Application Review",
+    "stageChangedAt": "2026-06-16T10:00:00.000Z"
+  },
+  {
+    "applicationId": "app_fixture_2",
+    "jobId": "job_fixture_1",
+    "reqId": "890",
+    "stageName": "Recruiter Phone Screen",
+    "stageChangedAt": "2026-06-18T10:00:00.000Z"
+  }
+]

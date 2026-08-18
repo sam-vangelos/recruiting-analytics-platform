@@ -1,0 +1,65 @@
+name: recruiting-ops-ci
+
+# The verification floor for the recruiting-ops control plane. It belongs on the
+# merge -> deploy path (branch-protected, required status check); a hosted build that
+# only runs `next build` runs none of it.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          # Pinned in YAML only (no engines field — package-lock is shared across worktrees).
+          node-version: "24"
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck (globs test/red — red specs must stay type-valid)
+        run: npm run typecheck
+
+      - name: Architecture check (behavioral rules, real repo)
+        run: npm run check:recruiting-ops-architecture
+
+      - name: Green board (excludes test/red)
+        run: npm test
+
+      - name: Mutation corpus (every seeded mutation must be caught by a test)
+        run: npm run test:mutation
+
+      - name: Production build (matches Cloud Run image)
+        env:
+          NODE_OPTIONS: --max-old-space-size=3072
+        run: npm run build -- --webpack
+
+      - name: Quarantined red specs must currently FAIL by assertion (empty backlog = goal state)
+        run: |
+          if ! ls test/red/*.test.ts >/dev/null 2>&1; then
+            echo "Red backlog is EMPTY — every audited population is fixed and its spec promoted to test/."
+            exit 0
+          fi
+          set +e
+          out="$(npm run test:red 2>&1)"
+          code=$?
+          echo "$out" | tail -40
+          if [ "$code" -eq 0 ]; then
+            echo "::error::A quarantined red spec PASSED on HEAD. A red spec must encode unmet behavior; if it passes, move it to test/ (the fix landed) or fix the spec."
+            exit 1
+          fi
+          if ! echo "$out" | grep -q "AssertionError"; then
+            echo "::error::The red suite failed, but not by AssertionError — likely a load/compile/type error. Red specs must be type-valid and fail at runtime by assertion."
+            exit 1
+          fi
+          echo "Red suite correctly fails on HEAD by assertion."
+
+      - name: Whitespace / conflict-marker guard
+        run: git diff --check

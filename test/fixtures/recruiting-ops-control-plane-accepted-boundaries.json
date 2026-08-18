@@ -1,0 +1,673 @@
+{
+  "privateServiceControl": {
+    "apiVersion": "serving.knative.dev/v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "ta-ops-staging-hydrator",
+      "namespace": "000000000000",
+      "labels": {
+        "cloud.googleapis.com/location": "us-central1",
+        "recops-scope": "copy-only",
+        "source-commit": "$RUNTIME_RELEASE_SHA"
+      },
+      "annotations": {
+        "run.googleapis.com/client-name": "gcloud",
+        "run.googleapis.com/client-version": "575.0.0",
+        "run.googleapis.com/ingress": "internal",
+        "run.googleapis.com/ingress-status": "internal",
+        "run.googleapis.com/maxScale": "100",
+        "run.googleapis.com/operation-id": "$OPERATION_ID",
+        "run.googleapis.com/urls": "[\"https://ta-ops-staging-hydrator-000000000000.us-central1.run.app\",\"https://ta-ops-staging-hydrator-abcdefghij-uc.a.run.app\"]",
+        "serving.knative.dev/creator": "$APPROVED_OPERATOR",
+        "serving.knative.dev/lastModifier": "$APPROVED_OPERATOR"
+      }
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "annotations": {
+            "autoscaling.knative.dev/maxScale": "1",
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "575.0.0",
+            "run.googleapis.com/execution-environment": "gen2",
+            "run.googleapis.com/startup-cpu-boost": "true"
+          },
+          "labels": {
+            "client.knative.dev/nonce": "$DEPLOY_NONCE",
+            "recops-scope": "copy-only",
+            "run.googleapis.com/startupProbeType": "Default",
+            "source-commit": "$RUNTIME_RELEASE_SHA"
+          }
+        },
+        "spec": {
+          "containerConcurrency": 1,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "GREENHOUSE_CLIENT_ID",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "greenhouse-client-id"
+                    }
+                  }
+                },
+                {
+                  "name": "GREENHOUSE_CLIENT_SECRET",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "greenhouse-client-secret"
+                    }
+                  }
+                },
+                {
+                  "name": "NODE_OPTIONS",
+                  "value": "--max-old-space-size=1536"
+                },
+                {
+                  "name": "RECOPS_GOOGLE_WRITER_SERVICE_ACCOUNT",
+                  "value": "recops-sheets-writer@example-project.iam.gserviceaccount.com"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_ALL_HIRES",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_DELIVERY_ROLES_RPS",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_ELT_DOC",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_FINAL_OFFER",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_PIPELINE_1026_1027",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_PIPELINE_1118_1119",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_PIPELINE_890",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_PIPELINE_907",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_RPS_TRACKING",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_WEEKLY_PROGRESS",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_HYDRATE_WEEKLY_RECRUITMENT",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_PII_FINGERPRINT_SALT",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "recops-pii-fingerprint-salt"
+                    }
+                  }
+                },
+                {
+                  "name": "RECOPS_STAGING_HYDRATION_ENABLED",
+                  "value": "false"
+                },
+                {
+                  "name": "RECOPS_STAGING_HYDRATION_JOB_RESOURCE",
+                  "value": "projects/example-project/locations/us-central1/jobs/ta-ops-staging-hydration"
+                },
+                {
+                  "name": "RECOPS_STAGING_HYDRATION_SCHEDULER_SERVICE_ACCOUNT",
+                  "value": "ta-ops-hydration-scheduler@example-project.iam.gserviceaccount.com"
+                },
+                {
+                  "name": "RECOPS_STAGING_HYDRATOR_OIDC_AUDIENCE",
+                  "value": "https://ta-ops-staging-hydrator-000000000000.us-central1.run.app"
+                },
+                {
+                  "name": "RECOPS_STAGING_ORCHESTRATION_SCHEDULER_JOB_NAME",
+                  "value": "projects/example-project/locations/us-central1/jobs/recops-staging-orchestration-weekday"
+                },
+                {
+                  "name": "SUPABASE_SERVICE_ROLE_KEY",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "supabase-service-role-key"
+                    }
+                  }
+                },
+                {
+                  "name": "SUPABASE_URL",
+                  "value": "https://exampleanalyticsref0.supabase.co"
+                }
+              ],
+              "image": "$APPROVED_PRIVATE_IMAGE",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http1"
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "2Gi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 1,
+                "periodSeconds": 240,
+                "tcpSocket": {
+                  "port": 8080
+                },
+                "timeoutSeconds": 240
+              }
+            }
+          ],
+          "serviceAccountName": "ta-ops-hydrator-run@example-project.iam.gserviceaccount.com",
+          "timeoutSeconds": 900
+        }
+      },
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100
+        }
+      ]
+    },
+    "statusTraffic": {
+      "latestCreatedReady": true,
+      "traffic": [
+        {
+          "latestRevision": true,
+          "percent": 100,
+          "revision": "$LATEST_READY_REVISION",
+          "tag": null,
+          "url": null
+        }
+      ]
+    }
+  },
+  "jobControl": {
+    "apiVersion": "run.googleapis.com/v1",
+    "kind": "Job",
+    "metadata": {
+      "name": "ta-ops-staging-hydration",
+      "namespace": "000000000000",
+      "labels": {
+        "cloud.googleapis.com/location": "us-central1",
+        "recops-scope": "copy-only",
+        "run.googleapis.com/lastUpdatedTime": "$LAST_UPDATED_TIME",
+        "source-commit": "$RUNTIME_RELEASE_SHA"
+      },
+      "annotations": {
+        "run.googleapis.com/client-name": "gcloud",
+        "run.googleapis.com/client-version": "575.0.0",
+        "run.googleapis.com/creator": "$APPROVED_OPERATOR",
+        "run.googleapis.com/lastModifier": "$APPROVED_OPERATOR",
+        "run.googleapis.com/operation-id": "$OPERATION_ID"
+      }
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "annotations": {
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "575.0.0",
+            "run.googleapis.com/execution-environment": "gen2"
+          },
+          "labels": {
+            "client.knative.dev/nonce": "$DEPLOY_NONCE",
+            "recops-scope": "copy-only",
+            "source-commit": "$RUNTIME_RELEASE_SHA"
+          }
+        },
+        "spec": {
+          "parallelism": 1,
+          "taskCount": 1,
+          "template": {
+            "spec": {
+              "containers": [
+                {
+                  "args": [
+                    "staging-hydration-job-launcher.mjs"
+                  ],
+                  "command": [
+                    "node"
+                  ],
+                  "env": [
+                    {
+                      "name": "GREENHOUSE_CLIENT_ID",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "1",
+                          "name": "greenhouse-client-id"
+                        }
+                      }
+                    },
+                    {
+                      "name": "GREENHOUSE_CLIENT_SECRET",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "1",
+                          "name": "greenhouse-client-secret"
+                        }
+                      }
+                    },
+                    {
+                      "name": "NODE_OPTIONS",
+                      "value": "--max-old-space-size=6144"
+                    },
+                    {
+                      "name": "RECOPS_GOOGLE_WRITER_SERVICE_ACCOUNT",
+                      "value": "recops-sheets-writer@example-project.iam.gserviceaccount.com"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_ALL_HIRES",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_DELIVERY_ROLES_RPS",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_ELT_DOC",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_FINAL_OFFER",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_PIPELINE_1026_1027",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_PIPELINE_1118_1119",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_PIPELINE_890",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_PIPELINE_907",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_RPS_TRACKING",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_WEEKLY_PROGRESS",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_HYDRATE_WEEKLY_RECRUITMENT",
+                      "value": "false"
+                    },
+                    {
+                      "name": "RECOPS_JOB_ARTIFACTS",
+                      "value": "elt_doc,weekly_recruitment,weekly_progress,all_hires,pipeline_890,pipeline_907,pipeline_1026_1027,pipeline_1118_1119,final_offer,rps_tracking,delivery_roles_rps"
+                    },
+                    {
+                      "name": "RECOPS_JOB_MODE",
+                      "value": "dry_run"
+                    },
+                    {
+                      "name": "RECOPS_PII_FINGERPRINT_SALT",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "1",
+                          "name": "recops-pii-fingerprint-salt"
+                        }
+                      }
+                    },
+                    {
+                      "name": "RECOPS_STAGING_HYDRATION_ENABLED",
+                      "value": "false"
+                    },
+                    {
+                      "name": "SUPABASE_SERVICE_ROLE_KEY",
+                      "valueFrom": {
+                        "secretKeyRef": {
+                          "key": "1",
+                          "name": "supabase-service-role-key"
+                        }
+                      }
+                    },
+                    {
+                      "name": "SUPABASE_URL",
+                      "value": "https://exampleanalyticsref0.supabase.co"
+                    }
+                  ],
+                  "image": "$APPROVED_PRIVATE_IMAGE",
+                  "resources": {
+                    "limits": {
+                      "cpu": "2",
+                      "memory": "8Gi"
+                    }
+                  }
+                }
+              ],
+              "maxRetries": 1,
+              "serviceAccountName": "ta-ops-hydrator-run@example-project.iam.gserviceaccount.com",
+              "timeoutSeconds": "3420"
+            }
+          }
+        }
+      }
+    }
+  },
+  "privateServiceIam": {
+    "version": 1,
+    "bindings": [
+      {
+        "role": "roles/run.invoker",
+        "members": [
+          "serviceAccount:ta-ops-hydration-scheduler@example-project.iam.gserviceaccount.com"
+        ],
+        "conditionPresent": false
+      }
+    ]
+  },
+  "jobIam": {
+    "version": 1,
+    "bindings": [
+      {
+        "role": "roles/run.invoker",
+        "members": [
+          "serviceAccount:ta-ops-hydration-scheduler@example-project.iam.gserviceaccount.com"
+        ],
+        "conditionPresent": false
+      },
+      {
+        "role": "roles/run.jobsExecutorWithOverrides",
+        "members": [
+          "serviceAccount:ta-ops-hydrator-run@example-project.iam.gserviceaccount.com"
+        ],
+        "conditionPresent": false
+      }
+    ]
+  },
+  "publicServiceControl": {
+    "apiVersion": "serving.knative.dev/v1",
+    "kind": "Service",
+    "metadata": {
+      "name": "ta-ops-analytics",
+      "namespace": "000000000000",
+      "labels": {
+        "cloud.googleapis.com/location": "us-central1",
+        "cron-secret-version": "4",
+        "employee-referral-diagnostic": "false",
+        "employee-referral-release": "e49ff96572f433dde5012c714851befba0e91e9f"
+      },
+      "annotations": {
+        "run.googleapis.com/client-name": "gcloud",
+        "run.googleapis.com/client-version": "575.0.0",
+        "run.googleapis.com/ingress": "all",
+        "run.googleapis.com/ingress-status": "all",
+        "run.googleapis.com/maxScale": "100",
+        "run.googleapis.com/operation-id": "$OPERATION_ID",
+        "run.googleapis.com/urls": "[\"https://ta-ops-analytics-000000000000.us-central1.run.app\",\"https://ta-ops-analytics-abcdefghij-uc.a.run.app\"]",
+        "serving.knative.dev/creator": "$APPROVED_OPERATOR",
+        "serving.knative.dev/lastModifier": "$APPROVED_OPERATOR"
+      }
+    },
+    "spec": {
+      "template": {
+        "metadata": {
+          "annotations": {
+            "autoscaling.knative.dev/maxScale": "2",
+            "run.googleapis.com/client-name": "gcloud",
+            "run.googleapis.com/client-version": "575.0.0",
+            "run.googleapis.com/startup-cpu-boost": "true"
+          },
+          "labels": {
+            "cron-secret-version": "4",
+            "employee-referral-diagnostic": "false",
+            "employee-referral-release": "e49ff96572f433dde5012c714851befba0e91e9f",
+            "run.googleapis.com/startupProbeType": "Default"
+          },
+          "name": "ta-ops-analytics-ref9f2dbe4cfg"
+        },
+        "spec": {
+          "containerConcurrency": 80,
+          "containers": [
+            {
+              "env": [
+                {
+                  "name": "CRON_SECRET",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "5",
+                      "name": "cron-secret"
+                    }
+                  }
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_FIRST_SCHEDULED_PERIOD",
+                  "value": "2026-07-01"
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_OIDC_AUDIENCE",
+                  "value": "https://ta-ops-analytics-abcdefghij-uc.a.run.app"
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_OPERATOR_MODE",
+                  "value": "false"
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_RECIPIENT_SCOPE_VERSION",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "EMPLOYEE_REFERRAL_REPORT_RECIPIENT_SCOPE_VERSION"
+                    }
+                  }
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_RECIPIENTS",
+                  "valueSha256": "88faffa4b3e986768a7a06518321ae5923416609c280bfa45d7224cc0e264951"
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_SCHEDULER_SERVICE_ACCOUNT",
+                  "value": "ta-ops-ref-report-scheduler@example-project.iam.gserviceaccount.com"
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_REPORT_SEND_ENABLED",
+                  "value": "false"
+                },
+                {
+                  "name": "EMPLOYEE_REFERRAL_WATCHDOG_SCHEDULER_SERVICE_ACCOUNT",
+                  "value": "ta-ops-ref-watchdog-scheduler@example-project.iam.gserviceaccount.com"
+                },
+                {
+                  "name": "GREENHOUSE_CLIENT_ID",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "latest",
+                      "name": "greenhouse-client-id"
+                    }
+                  }
+                },
+                {
+                  "name": "GREENHOUSE_CLIENT_SECRET",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "latest",
+                      "name": "greenhouse-client-secret"
+                    }
+                  }
+                },
+                {
+                  "name": "NOTIFY_EMAIL_FROM",
+                  "valueSha256": "e033cbc5ad11952b3bf160c798b1719f03c7f5f980a4e1673f7e707e383df017"
+                },
+                {
+                  "name": "RECOPS_EXEC_ENABLED",
+                  "value": "true"
+                },
+                {
+                  "name": "RECOPS_PII_FINGERPRINT_SALT",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "recops-pii-fingerprint-salt"
+                    }
+                  }
+                },
+                {
+                  "name": "RECRUITING_OPS_DASHBOARD_BASIC_PASSWORD",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "latest",
+                      "name": "recruiting-ops-dashboard-basic-password"
+                    }
+                  }
+                },
+                {
+                  "name": "RECRUITING_OPS_DASHBOARD_BASIC_USER",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "latest",
+                      "name": "recruiting-ops-dashboard-basic-user"
+                    }
+                  }
+                },
+                {
+                  "name": "RESEND_API_KEY",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "1",
+                      "name": "RESEND_API_KEY"
+                    }
+                  }
+                },
+                {
+                  "name": "SLACK_BOT_TOKEN",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "latest",
+                      "name": "slack-bot-token"
+                    }
+                  }
+                },
+                {
+                  "name": "SUPABASE_SERVICE_ROLE_KEY",
+                  "valueFrom": {
+                    "secretKeyRef": {
+                      "key": "latest",
+                      "name": "supabase-service-role-key"
+                    }
+                  }
+                },
+                {
+                  "name": "SUPABASE_URL",
+                  "value": "https://exampleanalyticsref0.supabase.co"
+                }
+              ],
+              "image": "us-central1-docker.pkg.dev/example-project/recruiting/ta-ops-analytics@sha256:c7f7d69e1aad3d708250cbbe0957eca3451aac196c01d3f04f0b16d85f0b66ff",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http1"
+                }
+              ],
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "1Gi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 1,
+                "periodSeconds": 240,
+                "tcpSocket": {
+                  "port": 8080
+                },
+                "timeoutSeconds": 240
+              }
+            }
+          ],
+          "serviceAccountName": "ta-ops-analytics-run@example-project.iam.gserviceaccount.com",
+          "timeoutSeconds": 900
+        }
+      },
+      "traffic": [
+        {
+          "percent": 100,
+          "revisionName": "ta-ops-analytics-refe49ff96v5"
+        },
+        {
+          "revisionName": "ta-ops-analytics-refe49ff96v5",
+          "tag": "ref-oidc-e49v5"
+        },
+        {
+          "revisionName": "ta-ops-analytics-ref9f2dbe4dark",
+          "tag": "ref-9f2dbe4-dark"
+        },
+        {
+          "revisionName": "ta-ops-analytics-ref9f2dbe4cfg",
+          "tag": "ref-9f2dbe4-cfg"
+        }
+      ]
+    },
+    "statusTraffic": {
+      "latestCreatedReady": true,
+      "traffic": [
+        {
+          "latestRevision": null,
+          "percent": null,
+          "revision": "$LATEST_READY_REVISION",
+          "tag": "ref-9f2dbe4-cfg",
+          "url": "https://ref-9f2dbe4-cfg---ta-ops-analytics-abcdefghij-uc.a.run.app"
+        },
+        {
+          "latestRevision": null,
+          "percent": null,
+          "revision": "$OTHER_REVISION",
+          "tag": "ref-9f2dbe4-dark",
+          "url": "https://ref-9f2dbe4-dark---ta-ops-analytics-abcdefghij-uc.a.run.app"
+        },
+        {
+          "latestRevision": null,
+          "percent": 100,
+          "revision": "$OTHER_REVISION",
+          "tag": "ref-oidc-e49v5",
+          "url": "https://ref-oidc-e49v5---ta-ops-analytics-abcdefghij-uc.a.run.app"
+        }
+      ]
+    }
+  },
+  "publicServiceIam": {
+    "version": 1,
+    "bindings": [
+      {
+        "role": "roles/run.invoker",
+        "members": [
+          "allUsers",
+          "serviceAccount:ta-ops-ref-report-scheduler@example-project.iam.gserviceaccount.com",
+          "serviceAccount:ta-ops-ref-watchdog-scheduler@example-project.iam.gserviceaccount.com"
+        ],
+        "conditionPresent": false
+      }
+    ]
+  }
+}
